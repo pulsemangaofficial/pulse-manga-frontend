@@ -9,6 +9,8 @@ import { MangaComments } from "@/components/manga/MangaComments";
 import { getMangaById, getChapterIdByNumber, getChapterPages } from "@/lib/mangadex";
 import { notFound } from "next/navigation";
 
+export const runtime = 'edge';
+
 export default async function ChapterPage({ params }: { params: Promise<{ id: string; chapterId: string }> }) {
     const { id, chapterId } = await params;
     const currentChNum = parseFloat(chapterId) || 1;

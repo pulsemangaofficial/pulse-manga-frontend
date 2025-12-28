@@ -4,6 +4,8 @@ import { MangaComments } from "@/components/manga/MangaComments"; // Using exist
 import { getMangaById, getChapterList } from "@/lib/mangadex";
 import { notFound } from "next/navigation";
 
+export const runtime = 'edge';
+
 // Since we are fetching data, we can also generate dynamic metadata
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
