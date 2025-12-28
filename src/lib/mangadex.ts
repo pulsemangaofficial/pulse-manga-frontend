@@ -87,7 +87,7 @@ export const getLatestChapters = async (limit = 16): Promise<Manga[]> => {
             const mangaMap = new Map(mangaResponse.data.data.map((m: any) => [m.id, m]));
 
             return updates.map(update => {
-                const manga = mangaMap.get(update.id);
+                const manga: any = mangaMap.get(update.id);
                 if (!manga) return update;
 
                 const coverFileName = manga.relationships.find((r: any) => r.type === "cover_art")?.attributes?.fileName;
