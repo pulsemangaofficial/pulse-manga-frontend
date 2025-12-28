@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading... — PULSE MANGA</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="reader-page">
+
+    <div class="reader-nav">
+        <div class="container nav-flex">
+            <a href="index.html" class="home-link">PULSE</a>
+            <div class="nav-controls">
+                <a id="prev-ch" class="btn disabled">Previous</a>
+                <span id="chapter-title">Loading...</span>
+                <a id="next-ch" class="btn disabled">Next</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="reader-container">
+        <div id="image-list">
+            </div>
+    </main>
+
+    <script src="assets/js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+            
+            if (!slug) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const data = await PulseAPI.getChapter(slug);
+            
+            // Update UI
+            document.getElementById('chapter-title').innerText = data.title;
+            document.title = `${data.title} — PULSE MANGA`;
+
+            // Setup Navigation
+            const prevBtn = document.getElementById('prev-ch');
+            const nextBtn = document.getElementById('next-ch');
+
+            if (data.navigation.prev) {
+                prevBtn.href = `reader.html?slug=${data.navigation.prev}`;
+                prevBtn.classList.remove('disabled');
+            }
+            if (data.navigation.next) {
+                nextBtn.href = `reader.html?slug=${data.navigation.next}`;
+                nextBtn.classList.remove('disabled');
+            }
+
+            // Load Images
+            const imageList = document.getElementById('image-list');
+            imageList.innerHTML = data.images.map(img => `
+                <img src="${img}" loading="lazy" alt="Manga Page">
+            `).join('');
+        });
+    </script>
+</body>
+</html>

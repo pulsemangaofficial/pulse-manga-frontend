@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manga Details — PULSE MANGA</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <header class="container">
+        <a href="index.html" style="text-decoration:none; color:inherit;">
+            <h1>PULSE<span>MANGA</span></h1>
+        </a>
+    </header>
+
+    <main class="container">
+        <div id="manga-detail" class="detail-layout">
+             <p>Loading manga details...</p>
+        </div>
+
+        <section class="chapter-section">
+            <h2>Chapters</h2>
+            <div id="chapter-list" class="chapter-grid">
+                </div>
+        </section>
+    </main>
+
+    <script src="assets/js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+
+            if (!slug) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const data = await PulseAPI.getMangaDetail(slug);
+
+            if (data.code === 'no_manga') {
+                document.getElementById('manga-detail').innerHTML = "<h2>Manga not found.</h2>";
+                return;
+            }
+
+            // Update Page Info
+            document.title = `${data.title} — PULSE MANGA`;
+            
+            // Build Detail UI (Fixed for Status and Rating)
+            document.getElementById('manga-detail').innerHTML = `
+                <div class="detail-header">
+                    <img src="${data.thumbnail || 'https://via.placeholder.com/300x450'}" class="detail-cover">
+                    <div class="detail-info">
+                        <h1>${data.title}</h1>
+                        <div class="meta-tags">
+                            <span class="status-tag">${data.status}</span>
+                            <span class="rating-tag">⭐ ${data.rating}</span>
+                        </div>
+                        <div class="description">${data.description || 'No synopsis available.'}</div>
+                    </div>
+                </div>
+            `;
+
+            // Build Chapter List
+            const chapterContainer = document.getElementById('chapter-list');
+            if (data.chapters && data.chapters.length > 0) {
+                chapterContainer.innerHTML = data.chapters.map(ch => `
+                    <a href="reader.html?slug=${ch.slug}" class="chapter-item">
+                        <span class="ch-name">${ch.title}</span>
+                        <span class="ch-date">${ch.date || ''}</span>
+                    </a>
+                `).join('');
+            } else {
+                chapterContainer.innerHTML = "<p>No chapters available.</p>";
+            }
+        });
+    </script>
+</body>
+</html>

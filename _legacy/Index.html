@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulse Manga — Official Home</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="nav-header">
+        <div class="container header-flex">
+            <div class="logo">PULSE<span>MANGA</span></div>
+            
+            <div class="mobile-toggle" id="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+
+            <nav class="desktop-menu">
+                <a href="#">Popular</a>
+                <a href="#">Latest</a>
+                <a href="#">Top</a>
+                <a href="#">Genres</a>
+                <a href="#">Manga List</a>
+                <a href="#">Discussions</a>
+                <a href="#" id="ai-nav-btn" class="ai-btn-text">AI Recommendation</a>
+            </nav>
+
+            <div class="header-right">
+                <div class="search-wrapper">
+                    <input type="text" id="search-input" placeholder="Search manga..." autocomplete="off">
+                    <div id="search-dropdown" class="search-results-dropdown"></div>
+                </div>
+                <div class="header-icons">
+                    <span class="icon-btn" title="Bookmarks">🔖</span>
+                    <span class="icon-btn" title="History">🕘</span>
+                    <span class="icon-btn" title="Login">👤</span>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-menu-overlay" id="mobile-menu-dropdown">
+            <a href="#">Popular</a><a href="#">Latest</a><a href="#">Top</a>
+            <a href="#">Genres</a><a href="#">Manga List</a><a href="#">Discussions</a>
+            <a href="#" class="ai-btn-text">AI Recommendation</a>
+        </div>
+    </header>
+
+    <section class="container hot-updates">
+        <h2 class="hot-section-title">HOT UPDATES</h2>
+        <div class="slider-container">
+            <button id="slide-left" class="slide-arrow">❮</button>
+            <div id="hot-slider" class="slider-wrapper"></div>
+            <button id="slide-right" class="slide-arrow">❯</button>
+        </div>
+    </section>
+
+    <main class="container main-layout">
+        <section class="content-left">
+            <h2 class="hot-section-title">LATEST UPDATES</h2>
+            <div id="latest-manga-grid" class="latest-grid"></div>
+        </section>
+
+        <aside class="sidebar-right">
+            <div class="sidebar-block">
+                <div class="sidebar-title-row"><h3>HISTORY</h3><a href="#" class="view-more">View more ></a></div>
+                <div id="history-list"></div>
+            </div>
+
+            <div class="sidebar-block">
+                <div class="sidebar-title-row"><h3>RANKING</h3></div>
+                <div class="ranking-tabs">
+                    <span class="tab-btn active" data-type="trending">TRENDING</span>
+                    <span class="tab-btn" data-type="top-week">TOP WEEK</span>
+                    <span class="tab-btn" data-type="reviews">REVIEWS</span>
+                </div>
+                <div id="ranking-list" class="ranking-list"></div>
+            </div>
+        </aside>
+    </main>
+
+    <section class="container global-comments-section">
+        <h2 class="hot-section-title" style="border-color: var(--accent-orange);">LATEST DISCUSSIONS</h2>
+        <div id="global-comments-grid" class="comments-grid"></div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-az-section">
+                <h3>A-Z List</h3>
+                <p>Searching Manga order by alphabet name A to Z.</p>
+                <div class="az-grid">
+                    <span>All</span><span>0-9</span><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span>
+                </div>
+            </div>
+            <div class="footer-bottom-grid">
+                <div class="footer-col"><h4>Help</h4><ul><li>Contact</li><li>Privacy Policy</li><li>TOS</li><li>DMCA</li></ul></div>
+                <div class="footer-col"><h4>Links</h4><ul><li>Newest</li><li>Recently Updated</li><li>Popular</li><li>A-Z List</li></ul></div>
+                <div class="footer-col"><h4>Partners</h4><ul><li>Read novel online</li></ul></div>
+                <div class="footer-col copyright-note">
+                    <p>All Manga, Character Designs and Logos are © to their respective copyright holders.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="ai-quiz-modal" class="quiz-overlay">
+        <div class="quiz-container">
+            <span class="close-modal" id="close-ai">&times;</span>
+            <div id="quiz-step-content" class="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/ai-recommendation.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
