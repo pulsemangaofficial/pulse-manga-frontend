@@ -3,7 +3,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Mail, Lock, Loader2 } from "lucide-react";
 
 export function LoginForm({ onSuccess }: { onSuccess: () => void }) {
-    const { loginWithCredentials, signInWithGoogle } = useAuth(); // Changed from loginWithGoogle to signInWithGoogle
+    const { loginWithCredentials, loginWithGoogle } = useAuth(); // Changed from loginWithGoogle to signInWithGoogle
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -29,7 +29,7 @@ export function LoginForm({ onSuccess }: { onSuccess: () => void }) {
         setError("");
         setLoading(true);
         try {
-            await signInWithGoogle();
+            await loginWithGoogle();
             onSuccess();
         } catch (err: any) {
             setError(err.message || "Failed to login with Google");
