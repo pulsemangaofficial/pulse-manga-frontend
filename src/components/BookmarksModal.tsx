@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { X, BookOpen, Trash2 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { MOCK_MANGA } from "@/data/mock";
 
 interface BookmarksModalProps {
@@ -63,14 +61,14 @@ export function BookmarksModal({ isOpen, onClose }: BookmarksModalProps) {
                     ) : (
                         <div className="grid gap-3">
                             {bookmarks.map(manga => (
-                                <Link
+                                <a
                                     key={manga.id}
                                     href={`/manga/${manga.id}`}
                                     onClick={onClose}
                                     className="flex items-center gap-4 bg-background border border-border p-3 rounded-lg hover:border-primary transition-all group"
                                 >
                                     <div className="relative w-16 h-24 flex-shrink-0 rounded overflow-hidden">
-                                        <Image src={manga.cover} alt={manga.title} fill className="object-cover" />
+                                        <img src={manga.cover} alt={manga.title} className="absolute inset-0 w-full h-full object-cover" />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <h3 className="font-bold text-white group-hover:text-primary transition-colors truncate">{manga.title}</h3>
@@ -86,7 +84,7 @@ export function BookmarksModal({ isOpen, onClose }: BookmarksModalProps) {
                                     >
                                         <Trash2 size={20} />
                                     </button>
-                                </Link>
+                                </a>
                             ))}
                         </div>
                     )}

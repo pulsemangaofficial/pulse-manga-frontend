@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { registerWithCredentials, loginWithGoogle, updateProfile } from "@/lib/authStore";
 import { Mail, Lock, User, Loader2, AlertCircle } from "lucide-react";
 import { isDisposableEmail, isValidEmail } from "@/lib/validation";
 
 export function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
-    const { registerWithCredentials, loginWithGoogle } = useAuth();
     const [loading, setLoading] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -33,7 +32,10 @@ export function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
         setLoading(true);
 
         try {
-            await registerWithCredentials(email, name, password);
+            const userCredential = await registerWithCredentials(email, password);
+            if (userCredential.user) {
+                await updateProfile(userCredential.user, { displayName: name });
+            }
             onSuccess();
         } catch (err: any) {
             setError(err.message || "Failed to create account");

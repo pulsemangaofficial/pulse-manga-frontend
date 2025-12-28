@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export function Footer() {
     const letters = ["All", "0-9", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
 
@@ -12,13 +10,13 @@ export function Footer() {
                     <p className="mb-4 text-sm text-text-muted">Searching Manga order by alphabet name A to Z.</p>
                     <div className="flex flex-wrap gap-2">
                         {letters.map((char) => (
-                            <Link
+                            <a
                                 key={char}
                                 href={`/manga-list?char=${char}`}
                                 className="flex items-center justify-center rounded bg-background px-2 py-1 text-xs font-semibold text-text-muted hover:bg-primary hover:text-white transition-colors border border-border"
                             >
                                 {char}
-                            </Link>
+                            </a>
                         ))}
                     </div>
                 </div>
@@ -70,9 +68,9 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
     return (
         <li>
-            <Link href={href} className="text-text-muted hover:text-primary transition-colors block py-1">
+            <a href={href} className="text-text-muted hover:text-primary transition-colors block py-1">
                 {children}
-            </Link>
+            </a>
         </li>
     );
 }

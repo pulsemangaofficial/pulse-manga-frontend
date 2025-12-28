@@ -2,8 +2,6 @@
 
 import { Star, Play, Bookmark, History } from "lucide-react";
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { Manga } from "@/data/mock";
 import { useReadingProgress } from "@/hooks/useReadingProgress";
 
@@ -38,7 +36,7 @@ export function MangaInfo({ manga }: MangaInfoProps) {
         <section className="bg-surface/50 border-b border-border pb-8">
             {/* Backdrop Blur (Optional visual flair) */}
             <div className="absolute inset-0 h-[300px] w-full overflow-hidden opacity-20 pointer-events-none">
-                <Image src={manga.cover} alt="backdrop" fill className="object-cover blur-3xl" />
+                <img src={manga.cover} alt="backdrop" className="absolute inset-0 w-full h-full object-cover blur-3xl" />
                 <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background" />
             </div>
 
@@ -46,7 +44,7 @@ export function MangaInfo({ manga }: MangaInfoProps) {
                 <div className="flex flex-col md:flex-row gap-8">
                     {/* Cover Image */}
                     <div className="flex-shrink-0 w-full md:w-[240px] aspect-[2/3] relative rounded-lg border-2 border-border shadow-2xl overflow-hidden group">
-                        <Image src={manga.cover} alt={manga.title} fill className="object-cover" priority />
+                        <img src={manga.cover} alt={manga.title} className="absolute inset-0 w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
 
@@ -108,20 +106,20 @@ function StartReadingButton({ mangaId }: { mangaId: string }) {
 
     return (
         <>
-            <Link
+            <a
                 href={`/manga/${mangaId}/chapter/1`}
                 className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded font-bold uppercase tracking-wide shadow-glow transition-all active:scale-95"
             >
                 <Play size={20} fill="currentColor" /> Start Reading
-            </Link>
+            </a>
 
             {lastChapter && lastChapter !== '1' && (
-                <Link
+                <a
                     href={`/manga/${mangaId}/chapter/${lastChapter}`}
                     className="flex items-center gap-2 bg-surface border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded font-bold uppercase tracking-wide transition-all active:scale-95"
                 >
                     <History size={20} /> Continue Ch {lastChapter}
-                </Link>
+                </a>
             )}
         </>
     );

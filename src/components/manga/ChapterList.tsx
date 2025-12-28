@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { useReadingProgress } from "@/hooks/useReadingProgress";
 
@@ -49,7 +48,7 @@ export function ChapterList({ mangaId, chapters }: ChapterListProps) {
             {/* Chapter Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
                 {filteredChapters.map((ch) => (
-                    <Link
+                    <a
                         key={ch.id}
                         href={`/manga/${mangaId}/chapter/${ch.chapter}`} // Using chapter number for URL for now, ideally use ID but our router uses ID? No wait, reading page uses chapter number usually. Let's start with number.
                         className="flex flex-col bg-background border border-border p-3 rounded hover:border-primary hover:bg-primary/5 transition-all group"
@@ -68,7 +67,7 @@ export function ChapterList({ mangaId, chapters }: ChapterListProps) {
                                 </span>
                             )}
                         </div>
-                    </Link>
+                    </a>
                 ))}
 
                 {filteredChapters.length === 0 && (

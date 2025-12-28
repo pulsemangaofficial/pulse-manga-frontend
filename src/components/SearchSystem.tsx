@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Search as SearchIcon, X, Loader2 } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
 import { MOCK_MANGA } from "@/data/mock";
 
 export function SearchSystem() {
@@ -76,19 +74,19 @@ export function SearchSystem() {
                         <ul>
                             {results.map((manga) => (
                                 <li key={manga.id}>
-                                    <Link
+                                    <a
                                         href={`/manga/${manga.id}`}
                                         className="flex items-center gap-3 p-3 hover:bg-white/5 transition-colors border-b border-border/50 last:border-none"
                                         onClick={() => setIsOpen(false)}
                                     >
-                                        <Image src={manga.cover} alt="" width={32} height={48} className="object-cover rounded" />
+                                        <img src={manga.cover} alt="" width={32} height={48} className="object-cover rounded" />
                                         <div>
                                             <div className="text-sm font-bold text-white">{manga.title}</div>
                                             <div className="text-xs text-text-muted">
                                                 CH {manga.latestChapter} • {manga.status}
                                             </div>
                                         </div>
-                                    </Link>
+                                    </a>
                                 </li>
                             ))}
                         </ul>

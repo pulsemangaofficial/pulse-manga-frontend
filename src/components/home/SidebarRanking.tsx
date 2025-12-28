@@ -1,8 +1,6 @@
 "use client";
 
 import { Crown } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Manga } from "@/lib/types";
 
@@ -49,7 +47,7 @@ export function SidebarRanking({ initialData = [] }: SidebarRankingProps) {
 
             <div className="flex flex-col gap-3">
                 {displayData.slice(0, 5).map((manga, index) => (
-                    <Link
+                    <a
                         key={manga.id}
                         href={`/manga/${manga.id}`}
                         className="flex items-center gap-3 group hover:bg-background/50 p-2 rounded transition-colors"
@@ -64,7 +62,7 @@ export function SidebarRanking({ initialData = [] }: SidebarRankingProps) {
                         </div>
                         <div className="relative h-16 w-12 flex-shrink-0 overflow-hidden rounded border border-border">
                             {manga.cover ? (
-                                <Image src={manga.cover} alt={manga.title} fill className="object-cover" />
+                                <img src={manga.cover} alt={manga.title} className="absolute inset-0 w-full h-full object-cover" />
                             ) : (
                                 <div className="w-full h-full bg-surface flex items-center justify-center text-xs text-text-muted">No Img</div>
                             )}
@@ -77,7 +75,7 @@ export function SidebarRanking({ initialData = [] }: SidebarRankingProps) {
                                 {manga.latestChapter ? `Chapter ${manga.latestChapter}` : manga.status}
                             </p>
                         </div>
-                    </Link>
+                    </a>
                 ))}
             </div>
         </div>

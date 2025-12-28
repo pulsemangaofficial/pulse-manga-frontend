@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { MessageSquare } from "lucide-react";
 
 const MOCK_COMMENTS = [
@@ -25,9 +24,9 @@ export function GlobalComments() {
                             <span className="font-bold text-primary">{item.user}</span>
                             <span className="text-text-muted">{item.time}</span>
                         </div>
-                        <Link href="#" className="text-xs font-bold text-white hover:text-secondary line-clamp-1 block mb-1">
+                        <a href="#" className="text-xs font-bold text-white hover:text-secondary line-clamp-1 block mb-1">
                             {item.manga}
-                        </Link>
+                        </a>
                         <p className="text-sm text-text-muted line-clamp-2">
                             &quot;{item.comment}&quot;
                         </p>

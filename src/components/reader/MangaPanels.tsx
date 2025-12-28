@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+// Image import removed
 
 interface MangaPanelsProps {
     pages: string[];

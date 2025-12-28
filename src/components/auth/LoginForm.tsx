@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { loginWithCredentials, loginWithGoogle } from "@/lib/authStore";
 import { Mail, Lock, Loader2 } from "lucide-react";
 
 export function LoginForm({ onSuccess }: { onSuccess: () => void }) {
-    const { loginWithCredentials, loginWithGoogle } = useAuth(); // Changed from loginWithGoogle to signInWithGoogle
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,7 +15,7 @@ export function LoginForm({ onSuccess }: { onSuccess: () => void }) {
         setLoading(true);
 
         try {
-            await loginWithCredentials(email, password); // Auth provider handles persistence usually, but we can pass rememberMe later if we implement persistence logic in Context
+            await loginWithCredentials(email, password);
             onSuccess();
         } catch (err: any) {
             setError(err.message || "Failed to login");

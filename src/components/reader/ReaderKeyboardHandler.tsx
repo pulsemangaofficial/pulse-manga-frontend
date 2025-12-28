@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 interface ReaderKeyboardHandlerProps {
     mangaId: string;
@@ -9,7 +8,6 @@ interface ReaderKeyboardHandlerProps {
 }
 
 export function ReaderKeyboardHandler({ mangaId, currentChapter }: ReaderKeyboardHandlerProps) {
-    const router = useRouter();
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -28,19 +26,19 @@ export function ReaderKeyboardHandler({ mangaId, currentChapter }: ReaderKeyboar
                 case "ArrowLeft":
                     // Previous Chapter
                     if (currentChapter > 1) {
-                        router.push(`/manga/${mangaId}/chapter/${currentChapter - 1}`);
+                        window.location.href = `/manga/${mangaId}/chapter/${currentChapter - 1}`;
                     }
                     break;
                 case "ArrowRight":
                     // Next Chapter
-                    router.push(`/manga/${mangaId}/chapter/${currentChapter + 1}`);
+                    window.location.href = `/manga/${mangaId}/chapter/${currentChapter + 1}`;
                     break;
             }
         };
 
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [mangaId, currentChapter, router]);
+    }, [mangaId, currentChapter]);
 
     return null;
 }

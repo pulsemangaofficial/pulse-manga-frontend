@@ -1,14 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import { Bookmark, Clock, User, Menu } from "lucide-react";
 import { useState } from "react";
 import { SearchSystem } from "@/components/SearchSystem";
 import { AIRecommendationModal } from "@/components/AIRecommendation";
 import { BookmarksModal } from "@/components/BookmarksModal";
 import { AuthModal } from "@/components/auth/AuthModal";
-import { useAuth } from "@/contexts/AuthContext";
+import { useStore } from "@nanostores/react";
+import { $user, logout } from "@/lib/authStore";
 
 export function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,17 +15,17 @@ export function Header() {
     const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const [imgError, setImgError] = useState(false);
-    const { user, logout } = useAuth();
+    const user = useStore($user);
 
     return (
         <>
             <header className="sticky top-0 z-50 w-full border-b border-border bg-surface text-text-main shadow-lg">
                 <div className="container mx-auto flex h-[70px] items-center justify-between px-4">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center text-2xl font-bold tracking-tight">
+                    <a href="/" className="flex items-center text-2xl font-bold tracking-tight">
                         <span className="text-primary">PULSE</span>
                         <span className="text-white">MANGA</span>
-                    </Link>
+                    </a>
 
                     {/* Mobile Menu Toggle */}
                     <button
@@ -117,12 +116,12 @@ export function Header() {
 
 function NavLink({ href, children, className = "" }: { href: string; children: React.ReactNode; className?: string }) {
     return (
-        <Link
+        <a
             href={href}
             className={`text-sm font-medium text-text-muted hover:text-white transition-colors ${className}`}
         >
             {children}
-        </Link>
+        </a>
     );
 }
 

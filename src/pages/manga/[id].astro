@@ -1,0 +1,60 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { MangaInfo } from "@/components/manga/MangaInfo";
+import { ChapterList } from "@/components/manga/ChapterList";
+import { MangaComments } from "@/components/manga/MangaComments";
+import { getMangaById, getChapterList } from "@/lib/mangadex";
+
+// Enable SSR for dynamic routing
+export const prerender = false;
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect("/404");
+}
+
+// Fetch data on server
+const [manga, chapters] = await Promise.all([
+  getMangaById(id),
+  getChapterList(id)
+]);
+
+if (!manga) {
+  return Astro.redirect("/404");
+}
+
+const title = `${manga.title} - Pulse Manga`;
+const description = manga.description?.slice(0, 160);
+---
+
+<Layout title={title} description={description}>
+  <div class="pb-20">
+    {/* Hydrate MangaInfo with React */}
+    <MangaInfo client:load manga={manga} />
+
+    <div class="container mx-auto px-4 mt-8 flex flex-col lg:flex-row gap-8">
+      <main class="flex-1 min-w-0">
+        {/* Description */}
+        <div class="mb-8">
+          <h3 class="text-xl font-bold text-white mb-2 pb-2 border-b border-border">SYNOPSIS</h3>
+          <p class="text-text-secondary leading-relaxed text-sm md:text-base">
+            {manga.description || "No description available."}
+          </p>
+        </div>
+
+        {/* Hydrate ChapterList with React */}
+        <ChapterList client:visible mangaId={id} chapters={chapters} />
+
+        {/* Hydrate Comments */}
+        <MangaComments client:visible />
+      </main>
+
+      <aside class="w-full lg:w-[320px] flex-shrink-0">
+        <div class="bg-surface/30 border border-border rounded p-4 h-fit sticky top-24">
+          <div class="text-center text-text-muted text-xs py-10">Sidebar Ad</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>

@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import { MOCK_MANGA } from "@/data/mock";
 
 export function ReaderRecommendations() {
@@ -18,17 +16,16 @@ export function ReaderRecommendations() {
 
                 <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3">
                     {recommendations.map((manga) => (
-                        <Link
+                        <a
                             key={manga.id}
                             href={`/manga/${manga.id}`}
                             className="group block bg-surface border border-border rounded overflow-hidden hover:border-primary transition-all hover:-translate-y-1"
                         >
                             <div className="aspect-[2/3] relative">
-                                <Image
+                                <img
                                     src={manga.cover}
                                     alt={manga.title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
                                 <div className="absolute bottom-0 left-0 p-2 w-full">
@@ -42,7 +39,7 @@ export function ReaderRecommendations() {
                                     </div>
                                 </div>
                             </div>
-                        </Link>
+                        </a>
                     ))}
                 </div>
             </div>

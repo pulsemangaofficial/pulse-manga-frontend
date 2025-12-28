@@ -2,8 +2,6 @@
 
 import { Manga } from "@/lib/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 
 interface HotUpdatesProps {
@@ -57,17 +55,16 @@ export function HotUpdates({ initialData = [] }: HotUpdatesProps) {
                         style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
                     >
                         {initialData.map((manga, idx) => (
-                            <Link
+                            <a
                                 key={`${manga.id}-${idx}`}
                                 href={`/manga/${manga.id}`}
                                 className="flex-none w-[160px] snap-center group/card"
                             >
                                 <div className="relative aspect-[2/3] overflow-hidden rounded-md border border-border shadow-md group-hover/card:shadow-glow transition-all">
-                                    <Image
+                                    <img
                                         src={manga.cover || "/placeholder.svg"}
                                         alt={manga.title}
-                                        fill
-                                        className="object-cover group-hover/card:scale-105 transition-transform duration-300"
+                                        className="absolute inset-0 w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"
                                     />
                                     {manga.latestChapter !== "..." && (
                                         <div className="absolute top-2 right-2 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm">
@@ -80,7 +77,7 @@ export function HotUpdates({ initialData = [] }: HotUpdatesProps) {
                                         <p className="text-xs text-text-muted">{manga.updatedAt}</p>
                                     </div>
                                 </div>
-                            </Link>
+                            </a>
                         ))}
                     </div>
                 </div>

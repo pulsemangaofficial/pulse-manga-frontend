@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Sparkles, X, Check } from "lucide-react";
 import { MOCK_MANGA } from "@/data/mock";
 
@@ -79,11 +78,10 @@ export function AIRecommendationModal({ isOpen, onClose }: { isOpen: boolean; on
                                 {recommendations.map(m => (
                                     <div key={m.id} className="flex gap-4 bg-background p-3 rounded border border-border hover:border-primary transition-colors cursor-pointer">
                                         <div className="relative w-12 h-16 rounded overflow-hidden"> {/* Adjusted div for Image component */}
-                                            <Image
+                                            <img
                                                 src={m.cover}
                                                 alt={m.title}
-                                                fill
-                                                className="object-cover"
+                                                className="absolute inset-0 w-full h-full object-cover"
                                             />
                                         </div>
                                         <div>
