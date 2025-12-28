@@ -62,10 +62,10 @@ export function Header() {
 
                             {user ? (
                                 <button onClick={logout} className="flex items-center gap-2">
-                                    {user.avatar && !imgError ? (
+                                    {user.photoURL && !imgError ? (
                                         // eslint-disable-next-line @next/next/no-img-element
                                         <img
-                                            src={user.avatar}
+                                            src={user.photoURL}
                                             width={32}
                                             height={32}
                                             className="rounded-full border border-primary object-cover"
