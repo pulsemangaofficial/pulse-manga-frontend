@@ -33,7 +33,7 @@ export function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
         setLoading(true);
 
         try {
-            await registerWithCredentials(email, name);
+            await registerWithCredentials(email, name, password);
             onSuccess();
         } catch (err: any) {
             setError(err.message || "Failed to create account");
