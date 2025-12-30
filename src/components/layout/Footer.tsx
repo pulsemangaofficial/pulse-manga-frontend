@@ -1,76 +1,139 @@
-export function Footer() {
-    const letters = ["All", "0-9", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
+import { Link } from 'react-router-dom';
+import { MessageCircle } from 'lucide-react';
+
+export const Footer = () => {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+    // Mock latest discussions - in production, fetch from a discussions API
+    const latestDiscussions = [
+        { user: 'DemonKing', manga: 'Solo Leveling', comment: '"The art in this chapter is insane!"', time: '2m ago' },
+        { user: 'Reader99', manga: 'One Piece', comment: '"Luffy is actually..."', time: '5m ago' },
+        { user: 'SimpleMdeline', manga: 'Chainsaw Man', comment: '"Worst arc?"', time: '12m ago' },
+        { user: 'AngelPatricia', manga: 'Spy x Family', comment: '"Anya Waku Waku"', time: '1h ago' },
+    ];
 
     return (
-        <footer className="mt-16 border-t border-border bg-surface pt-10 pb-6">
-            <div className="container mx-auto px-4">
-                {/* A-Z Section */}
+        <footer className="bg-[#0b0c15] border-t border-white/5 mt-20">
+            <div className="container mx-auto px-4 py-10">
+                {/* Latest Discussions */}
                 <div className="mb-10">
-                    <h3 className="mb-2 text-lg font-bold text-primary">A-Z List</h3>
-                    <p className="mb-4 text-sm text-text-muted">Searching Manga order by alphabet name A to Z.</p>
-                    <div className="flex flex-wrap gap-2">
-                        {letters.map((char) => (
-                            <a
-                                key={char}
-                                href={`/manga-list?char=${char}`}
-                                className="flex items-center justify-center rounded bg-background px-2 py-1 text-xs font-semibold text-text-muted hover:bg-primary hover:text-white transition-colors border border-border"
+                    <div className="flex items-center gap-2 mb-4">
+                        <MessageCircle className="w-5 h-5 text-primary" />
+                        <h3 className="text-lg font-bold text-white uppercase tracking-wider">Latest Discussions</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {latestDiscussions.map((disc, idx) => (
+                            <Link
+                                key={idx}
+                                to="/discussions"
+                                className="bg-surface/30 hover:bg-surface/50 border border-white/5 hover:border-primary/30 rounded-lg p-4 transition-all group"
                             >
-                                {char}
-                            </a>
+                                <div className="flex justify-between items-start mb-2">
+                                    <span className="text-sm font-semibold text-primary">{disc.user}</span>
+                                    <span className="text-xs text-gray-600">{disc.time}</span>
+                                </div>
+                                <h4 className="text-sm font-bold text-white mb-1 group-hover:text-primary transition-colors">{disc.manga}</h4>
+                                <p className="text-xs text-gray-400 line-clamp-1">{disc.comment}</p>
+                            </Link>
                         ))}
                     </div>
                 </div>
 
-                {/* Footer Links Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
-                    <FooterColumn title="Help">
-                        <FooterLink href="/contact">Contact</FooterLink>
-                        <FooterLink href="/privacy">Privacy Policy</FooterLink>
-                        <FooterLink href="/tos">TOS</FooterLink>
-                        <FooterLink href="/dmca">DMCA</FooterLink>
-                    </FooterColumn>
+                {/* A-Z List */}
+                <div className="mb-10">
+                    <h3 className="text-lg font-bold text-primary mb-3 uppercase tracking-wider">A-Z List</h3>
+                    <p className="text-sm text-gray-400 mb-4">Searching Manga order by alphabet name A to Z.</p>
+                    <div className="flex flex-wrap gap-2">
+                        <Link
+                            to="/list?sort=all"
+                            className="px-3 py-2 bg-surface/50 hover:bg-primary/20 border border-white/10 hover:border-primary/30 rounded text-sm font-medium text-gray-300 hover:text-primary transition-all"
+                        >
+                            All
+                        </Link>
+                        <Link
+                            to="/list?sort=0-9"
+                            className="px-3 py-2 bg-surface/50 hover:bg-primary/20 border border-white/10 hover:border-primary/30 rounded text-sm font-medium text-gray-300 hover:text-primary transition-all"
+                        >
+                            0-9
+                        </Link>
+                        {alphabet.map(letter => (
+                            <Link
+                                key={letter}
+                                to={`/list?sort=${letter.toLowerCase()}`}
+                                className="px-3 py-2 bg-surface/50 hover:bg-primary/20 border border-white/10 hover:border-primary/30 rounded text-sm font-medium text-gray-300 hover:text-primary transition-all"
+                            >
+                                {letter}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
 
-                    <FooterColumn title="Links">
-                        <FooterLink href="/newest">Newest</FooterLink>
-                        <FooterLink href="/updated">Recently Updated</FooterLink>
-                        <FooterLink href="/popular">Popular</FooterLink>
-                        <FooterLink href="/manga-list">A-Z List</FooterLink>
-                    </FooterColumn>
-
-                    <FooterColumn title="Partners">
-                        <a href="#" className="text-text-muted hover:text-primary transition-colors block py-1">Read novel online</a>
-                    </FooterColumn>
-
-                    <div className="flex flex-col justify-start">
-                        <div className="mt-auto">
-                            <p className="text-xs text-text-muted leading-relaxed">
-                                All Manga, Character Designs and Logos are © to their respective copyright holders.
-                            </p>
+                {/* Footer Links */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8 border-b border-white/5">
+                    {/* Help Section */}
+                    <div>
+                        <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Help</h4>
+                        <div className="space-y-2">
+                            <Link to="/contact" className="block text-sm text-gray-400 hover:text-primary transition-colors">
+                                Contact
+                            </Link>
+                            <Link to="/privacy-policy" className="block text-sm text-gray-400 hover:text-primary transition-colors">
+                                Privacy Policy
+                            </Link>
+                            <Link to="/tos" className="block text-sm text-gray-400 hover:text-primary transition-colors">
+                                TOS
+                            </Link>
+                            <Link to="/dmca" className="block text-sm text-gray-400 hover:text-primary transition-colors">
+                                DMCA
+                            </Link>
                         </div>
                     </div>
+
+                    {/* Links Section */}
+                    <div>
+                        <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Links</h4>
+                        <div className="space-y-2">
+                            <Link to="/" className="block text-sm text-gray-400 hover:text-primary transition-colors">
+                                Newest
+                            </Link>
+                            <Link to="/latest" className="block text-sm text-gray-400 hover:text-primary transition-colors">
+                                Recently Updated
+                            </Link>
+                            <Link to="/popular" className="block text-sm text-gray-400 hover:text-primary transition-colors">
+                                Popular
+                            </Link>
+                            <Link to="/list" className="block text-sm text-gray-400 hover:text-primary transition-colors">
+                                A-Z List
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Partners Section */}
+                    <div>
+                        <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Partners</h4>
+                        <div className="space-y-2">
+                            <a
+                                href="https://example.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block text-sm text-gray-400 hover:text-primary transition-colors"
+                            >
+                                Read novel online
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Copyright */}
+                <div className="text-center text-xs text-gray-600">
+                    <p className="mb-2">
+                        All Manga, Character Designs and Logos are © to their respective copyright holders.
+                    </p>
+                    <p className="text-gray-700">
+                        © 2025 <span className="text-primary font-bold">PULSEMANGA</span>. All rights reserved.
+                    </p>
                 </div>
             </div>
         </footer>
     );
-}
-
-function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
-    return (
-        <div className="flex flex-col">
-            <h4 className="mb-4 text-base font-bold text-white uppercase tracking-wider">{title}</h4>
-            <ul className="flex flex-col gap-1">
-                {children}
-            </ul>
-        </div>
-    );
-}
-
-function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
-    return (
-        <li>
-            <a href={href} className="text-text-muted hover:text-primary transition-colors block py-1">
-                {children}
-            </a>
-        </li>
-    );
-}
+};
