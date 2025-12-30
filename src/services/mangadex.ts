@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://api.mangadex.org';
-const COVER_URL = 'https://uploads.mangadex.org/covers';
+const BASE_URL = 'https://mangadex-proxy.pulsemangaofficial.workers.dev/';
+const COVER_URL = 'https://mangadex-proxy.pulsemangaofficial.workers.dev/covers';
 
 export interface Manga {
     id: string;
